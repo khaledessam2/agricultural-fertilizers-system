@@ -1,0 +1,86 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">نظام معلومات زراعي</div>
+    <h1 class="hero-title">
+      نظام الأسمدة
+      <span class="hero-highlight">والمواد الزراعية</span>
+    </h1>
+    <p class="hero-desc">
+      مرجع علمي شامل يضم قاعدة بيانات متكاملة عن الأسمدة الزراعية ومصادرها ومكتبة رقمية من الأبحاث والكتب العلمية.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/fertilizers" class="btn-primary">استكشف الأسمدة</a>
+      <a routerLink="/pdf-library" class="btn-secondary">مكتبة PDF</a>
+    </div>
+  </div>
+  <div class="hero-image">🌾</div>
+</section>
+
+<!-- Stats -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">{{ stats.totalFertilizers }}</div>
+      <div class="stat-label">نوع سماد</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">{{ stats.totalPdfs }}</div>
+      <div class="stat-label">ملف PDF</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">{{ stats.totalDownloads | number }}</div>
+      <div class="stat-label">تنزيل</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">{{ stats.categories }}</div>
+      <div class="stat-label">تصنيف</div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features-section">
+  <h2 class="section-title">ماذا يوفر النظام؟</h2>
+  <div class="features-grid">
+    @for (feature of features; track feature.title) {
+      <a [routerLink]="feature.link" class="feature-card">
+        <div class="feature-icon">{{ feature.icon }}</div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-desc">{{ feature.desc }}</p>
+        <span class="feature-link">اكتشف المزيد ←</span>
+      </a>
+    }
+  </div>
+</section>
+
+<!-- Fertilizer Types -->
+<section class="types-section">
+  <h2 class="section-title">تصنيفات الأسمدة</h2>
+  <div class="types-grid">
+    <a routerLink="/fertilizers" [queryParams]="{type:'nitrogen'}" class="type-card nitrogen">
+      <span class="type-icon">💧</span>
+      <span>أسمدة نيتروجينية</span>
+    </a>
+    <a routerLink="/fertilizers" [queryParams]="{type:'phosphorus'}" class="type-card phosphorus">
+      <span class="type-icon">🟠</span>
+      <span>أسمدة فوسفاتية</span>
+    </a>
+    <a routerLink="/fertilizers" [queryParams]="{type:'potassium'}" class="type-card potassium">
+      <span class="type-icon">🟣</span>
+      <span>أسمدة بوتاسية</span>
+    </a>
+    <a routerLink="/fertilizers" [queryParams]="{type:'organic'}" class="type-card organic">
+      <span class="type-icon">🍃</span>
+      <span>أسمدة عضوية</span>
+    </a>
+    <a routerLink="/fertilizers" [queryParams]="{type:'compound'}" class="type-card compound">
+      <span class="type-icon">⚗️</span>
+      <span>أسمدة مركبة</span>
+    </a>
+    <a routerLink="/fertilizers" [queryParams]="{type:'micronutrient'}" class="type-card micro">
+      <span class="type-icon">🔬</span>
+      <span>عناصر صغرى</span>
+    </a>
+  </div>
+</section>

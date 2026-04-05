@@ -1,0 +1,241 @@
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb a { color: #2d8c47; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Main Panel */
+.main-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.fert-name { font-size: 2rem; font-weight: 800; color: #1a3c20; margin: 0 0 0.3rem; }
+.fert-name-en { font-size: 1rem; color: #888; margin: 0 0 0.5rem; }
+
+.formula {
+  display: inline-block;
+  background: #f0faf0;
+  color: #2d8c47;
+  font-family: monospace;
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+}
+
+.type-badge {
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.fert-desc {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #444;
+  margin: 0;
+}
+
+/* NPK */
+.section-h {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a3c20;
+  margin: 0 0 1rem;
+}
+
+.npk-section {
+  background: #f8fdf9;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.npk-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.npk-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.npk-label {
+  width: 120px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  background: #e5e7eb;
+  border-radius: 10px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.8s ease;
+}
+
+.npk-pct {
+  width: 44px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #333;
+  text-align: left;
+}
+
+.nitrogen-color { color: #1e40af; }
+.phosphorus-color { color: #9a3412; }
+.potassium-color { color: #5b21b6; }
+.nitrogen-bg { background: #3b82f6; }
+.phosphorus-bg { background: #f97316; }
+.potassium-bg { background: #8b5cf6; }
+
+.info-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f0faf0;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  border-right: 4px solid #2d8c47;
+}
+
+.info-icon { font-size: 2rem; }
+.info-label { font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+.info-val { font-size: 0.95rem; font-weight: 600; color: #1a3c20; }
+
+/* Side Panel */
+.side-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+.side-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+.side-h {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a3c20;
+  margin: 0 0 0.75rem;
+}
+
+.tags-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.crop-tag {
+  background: #e8f5e9;
+  color: #1a5c2a;
+  padding: 0.25rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+}
+
+.benefits-card { border-top: 3px solid #22c55e; }
+.warnings-card { border-top: 3px solid #f59e0b; }
+.source-card { border-top: 3px solid #6366f1; }
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.benefits-card .list li::before { content: '✓ '; color: #22c55e; font-weight: 700; }
+.warnings-card .list li::before { content: '! '; color: #f59e0b; font-weight: 700; }
+
+.list li {
+  font-size: 0.88rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.source-info { display: flex; flex-direction: column; gap: 0.4rem; }
+.source-row { font-size: 0.85rem; color: #555; }
+.source-row strong { color: #333; }
+
+.action-btns { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.pdf-btn {
+  background: #1a5c2a;
+  color: white;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.pdf-btn:hover { background: #2d8c47; }
+
+.back-btn {
+  background: white;
+  color: #1a5c2a;
+  border: 2px solid #1a5c2a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.back-btn:hover { background: #f0faf0; }
+
+.not-found {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: #888;
+}
+
+.nf-icon { font-size: 5rem; margin-bottom: 1rem; }
+.not-found h2 { color: #444; margin-bottom: 1.5rem; }
+
+@media (max-width: 900px) {
+  .detail-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,96 @@
+<div class="page-container" dir="rtl">
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">🌿 قاعدة بيانات الأسمدة</h1>
+    <p class="page-sub">{{ allFertilizers.length }} نوع من الأسمدة الزراعية موثقة علمياً</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="ابحث عن سماد، محصول، تركيبة..."
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()"
+        class="search-input"
+      />
+    </div>
+
+    <div class="type-filters">
+      @for (t of types; track t.value) {
+        <button
+          class="filter-btn"
+          [class.active]="selectedType === t.value"
+          (click)="onTypeChange(t.value)"
+        >{{ t.label }}</button>
+      }
+    </div>
+  </div>
+
+  <!-- Results Count -->
+  <div class="results-count">
+    عرض {{ filteredFertilizers.length }} من {{ allFertilizers.length }} سماد
+  </div>
+
+  <!-- Cards Grid -->
+  @if (filteredFertilizers.length > 0) {
+    <div class="cards-grid">
+      @for (f of filteredFertilizers; track f.id) {
+        <a [routerLink]="['/fertilizers', f.id]" class="fert-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name-ar">{{ f.nameAr }}</h3>
+              <p class="card-name-en">{{ f.nameEn }}</p>
+            </div>
+            <span class="type-badge" [ngClass]="getTypeColor(f.type)">
+              {{ getTypeLabel(f.type) }}
+            </span>
+          </div>
+
+          @if (f.chemicalFormula) {
+            <div class="formula">{{ f.chemicalFormula }}</div>
+          }
+
+          <p class="card-desc">{{ f.descriptionAr | slice:0:120 }}...</p>
+
+          <div class="npk-bar">
+            <div class="npk-item">
+              <span class="npk-label">N</span>
+              <span class="npk-val">{{ f.npk.n }}%</span>
+            </div>
+            <div class="npk-item">
+              <span class="npk-label">P</span>
+              <span class="npk-val">{{ f.npk.p }}%</span>
+            </div>
+            <div class="npk-item">
+              <span class="npk-label">K</span>
+              <span class="npk-val">{{ f.npk.k }}%</span>
+            </div>
+          </div>
+
+          <div class="crops-list">
+            @for (crop of f.crops.slice(0,4); track crop) {
+              <span class="crop-tag">{{ crop }}</span>
+            }
+            @if (f.crops.length > 4) {
+              <span class="crop-tag more">+{{ f.crops.length - 4 }}</span>
+            }
+          </div>
+
+          <div class="card-footer">
+            <span class="source-info">📖 {{ f.source.author }}</span>
+            <span class="details-link">التفاصيل →</span>
+          </div>
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <h3>لا توجد نتائج</h3>
+      <p>حاول تغيير مصطلح البحث أو تصفية التصنيف</p>
+    </div>
+  }
+</div>

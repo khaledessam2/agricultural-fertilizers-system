@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a routerLink="/" class="nav-logo" (click)="closeMenu()">
+      <span class="logo-icon">🌱</span>
+      <div class="logo-text">
+        <span class="logo-title">نظام الأسمدة</span>
+        <span class="logo-sub">والمواد الزراعية</span>
+      </div>
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="nav-links">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">الرئيسية</a></li>
+      <li><a routerLink="/fertilizers" routerLinkActive="active">قاعدة الأسمدة</a></li>
+      <li><a routerLink="/pdf-library" routerLinkActive="active">مكتبة PDF</a></li>
+      <li><a routerLink="/sources" routerLinkActive="active">المصادر</a></li>
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button class="menu-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  @if (menuOpen()) {
+    <div class="mobile-menu">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMenu()">🏠 الرئيسية</a>
+      <a routerLink="/fertilizers" routerLinkActive="active" (click)="closeMenu()">🌿 قاعدة الأسمدة</a>
+      <a routerLink="/pdf-library" routerLinkActive="active" (click)="closeMenu()">📚 مكتبة PDF</a>
+      <a routerLink="/sources" routerLinkActive="active" (click)="closeMenu()">📖 المصادر</a>
+    </div>
+  }
+</nav>

@@ -1,0 +1,148 @@
+<div class="viewer-layout" dir="rtl">
+
+  <!-- Sidebar: PDF List -->
+  <aside class="pdf-sidebar">
+    <div class="sidebar-header">
+      <h3>📚 قائمة الملفات</h3>
+    </div>
+    <div class="sidebar-list">
+      @for (p of allPdfs; track p.id) {
+        <div
+          class="sidebar-item"
+          [class.active]="pdf?.id === p.id"
+          (click)="selectPdf(p)"
+        >
+          <div class="si-icon">📄</div>
+          <div class="si-info">
+            <div class="si-title">{{ p.titleAr | slice:0:50 }}...</div>
+            <div class="si-meta">{{ p.year }} • {{ p.pages }}ص</div>
+          </div>
+        </div>
+      }
+    </div>
+  </aside>
+
+  <!-- Main Viewer -->
+  <main class="viewer-main">
+    @if (notFound) {
+      <div class="not-found">
+        <div>📭</div>
+        <h3>الملف غير موجود</h3>
+        <button (click)="goBack()" class="back-btn">← العودة للمكتبة</button>
+      </div>
+    }
+
+    @if (pdf) {
+      <!-- PDF Info Header -->
+      <div class="pdf-info-header">
+        <button (click)="goBack()" class="back-btn-sm">← المكتبة</button>
+
+        <div class="pdf-title-block">
+          <h1 class="pdf-main-title">{{ pdf.titleAr }}</h1>
+          <p class="pdf-eng-title">{{ pdf.titleEn }}</p>
+        </div>
+
+        <button (click)="openPdf()" class="open-btn">
+          🔗 فتح في نافذة جديدة
+        </button>
+      </div>
+
+      <!-- PDF Metadata -->
+      <div class="meta-strip">
+        <div class="meta-item">
+          <span class="meta-label">المؤلف</span>
+          <span class="meta-val">{{ pdf.author }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">المؤسسة</span>
+          <span class="meta-val">{{ pdf.organization }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">السنة</span>
+          <span class="meta-val">{{ pdf.year }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">الصفحات</span>
+          <span class="meta-val">{{ pdf.pages }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">الحجم</span>
+          <span class="meta-val">{{ pdf.fileSize }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">اللغة</span>
+          <span class="meta-val">{{ getLangLabel(pdf.language) }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">التنزيلات</span>
+          <span class="meta-val">{{ pdf.downloads | number }}</span>
+        </div>
+      </div>
+
+      <!-- Source Info -->
+      <div class="source-box">
+        <span class="source-label">📖 المصدر:</span>
+        <span class="source-val">{{ pdf.source }}</span>
+      </div>
+
+      <!-- Description -->
+      <div class="desc-box">
+        <h3 class="desc-h">نبذة عن المستند</h3>
+        <p class="desc-text">{{ pdf.descriptionAr }}</p>
+      </div>
+
+      <!-- Tags -->
+      <div class="tags-box">
+        <span class="tags-label">الكلمات المفتاحية:</span>
+        <div class="tags-list">
+          @for (tag of pdf.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- PDF Viewer Embed -->
+      <div class="embed-section">
+        <!-- Placeholder Card (default view) -->
+        @if (!showIframe) {
+          <div class="pdf-placeholder-card">
+            <div class="placeholder-icon">📄</div>
+            <h3>{{ pdf.titleAr }}</h3>
+            <p class="placeholder-sub">{{ pdf.organization }} — {{ pdf.year }}</p>
+
+            <div class="placeholder-path">
+              <span class="path-label">📁 مسار الملف:</span>
+              <code>src/assets/pdfs/{{ pdf.fileUrl.split('/').pop() }}</code>
+            </div>
+
+            <p class="placeholder-hint">
+              لعرض الملف داخل التطبيق، ضع ملف PDF في المسار أعلاه ثم اضغط "تشغيل العارض".
+            </p>
+
+            <div class="placeholder-actions">
+              <button (click)="toggleIframe()" class="embed-btn">
+                ▶ تشغيل عارض PDF
+              </button>
+              <button (click)="openPdf()" class="open-btn">
+                🔗 فتح في نافذة جديدة
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- Iframe Viewer (shown after button click) -->
+        @if (showIframe) {
+          <div class="iframe-toolbar">
+            <span class="iframe-title">{{ pdf.titleAr }}</span>
+            <button (click)="toggleIframe()" class="close-iframe-btn">✕ إغلاق العارض</button>
+          </div>
+          <iframe
+            [src]="safeUrl"
+            class="pdf-iframe"
+            title="{{ pdf.titleAr }}"
+          ></iframe>
+        }
+      </div>
+    }
+  </main>
+</div>

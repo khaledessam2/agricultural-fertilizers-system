@@ -1,0 +1,104 @@
+<div class="page-container" dir="rtl">
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">📚 مكتبة PDF الزراعية</h1>
+    <p class="page-sub">
+      {{ allPdfs.length }} مستند علمي &nbsp;|&nbsp;
+      {{ getTotalDownloads() | number }} تنزيل إجمالي
+    </p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="ابحث بالعنوان، المؤلف، الموضوع..."
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()"
+        class="search-input"
+      />
+    </div>
+
+    <div class="cat-filters">
+      @for (cat of categories; track cat.value) {
+        <button
+          class="cat-btn"
+          [class.active]="selectedCategory === cat.value"
+          (click)="onCategoryChange(cat.value)"
+        >
+          <span>{{ cat.icon }}</span>
+          <span>{{ cat.label }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Count -->
+  <div class="results-count">عرض {{ filteredPdfs.length }} من {{ allPdfs.length }} مستند</div>
+
+  <!-- PDF Cards -->
+  @if (filteredPdfs.length > 0) {
+    <div class="pdf-grid">
+      @for (pdf of filteredPdfs; track pdf.id) {
+        <div class="pdf-card" (click)="viewPdf(pdf)">
+          <!-- Cover -->
+          <div class="pdf-cover">
+            <div class="pdf-icon">📄</div>
+            <div class="pdf-year">{{ pdf.year }}</div>
+            <div class="lang-badge">{{ getLangLabel(pdf.language) }}</div>
+          </div>
+
+          <!-- Content -->
+          <div class="pdf-content">
+            <div class="pdf-cat-badge">{{ categoryLabels[pdf.category] }}</div>
+            <h3 class="pdf-title">{{ pdf.titleAr }}</h3>
+            <p class="pdf-desc">{{ pdf.descriptionAr | slice:0:120 }}...</p>
+
+            <div class="pdf-meta">
+              <div class="meta-row">
+                <span class="meta-icon">👤</span>
+                <span>{{ pdf.author }}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-icon">🏛️</span>
+                <span>{{ pdf.organization }}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-icon">📄</span>
+                <span>{{ pdf.pages }} صفحة</span>
+                <span class="meta-sep">•</span>
+                <span>{{ pdf.fileSize }}</span>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="tag-list">
+              @for (tag of pdf.tags.slice(0,4); track tag) {
+                <span class="tag">{{ tag }}</span>
+              }
+            </div>
+
+            <!-- Footer -->
+            <div class="pdf-footer">
+              <div class="downloads">
+                <span>⬇️</span>
+                <span>{{ pdf.downloads | number }} تنزيل</span>
+              </div>
+              <button class="view-btn" (click)="viewPdf(pdf, $event)">
+                👁️ عرض PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>لا توجد مستندات</h3>
+      <p>حاول تغيير مصطلح البحث أو التصنيف</p>
+    </div>
+  }
+</div>

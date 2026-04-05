@@ -1,0 +1,135 @@
+<div class="page-container" dir="rtl">
+  @if (notFound) {
+    <div class="not-found">
+      <div class="nf-icon">🔍</div>
+      <h2>السماد غير موجود</h2>
+      <button (click)="goBack()" class="back-btn">← العودة للقائمة</button>
+    </div>
+  }
+
+  @if (fertilizer) {
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a routerLink="/">الرئيسية</a>
+      <span>/</span>
+      <a routerLink="/fertilizers">الأسمدة</a>
+      <span>/</span>
+      <span>{{ fertilizer.nameAr }}</span>
+    </nav>
+
+    <div class="detail-grid">
+      <!-- Main Info -->
+      <div class="main-panel">
+        <div class="panel-header">
+          <div>
+            <h1 class="fert-name">{{ fertilizer.nameAr }}</h1>
+            <p class="fert-name-en">{{ fertilizer.nameEn }}</p>
+            @if (fertilizer.chemicalFormula) {
+              <div class="formula">{{ fertilizer.chemicalFormula }}</div>
+            }
+          </div>
+          <span class="type-badge" [ngClass]="typeColors[fertilizer.type]">
+            {{ typeLabels[fertilizer.type] }}
+          </span>
+        </div>
+
+        <p class="fert-desc">{{ fertilizer.descriptionAr }}</p>
+
+        <!-- NPK Chart -->
+        <div class="npk-section">
+          <h3 class="section-h">التركيب الكيميائي (NPK)</h3>
+          <div class="npk-bars">
+            <div class="npk-row">
+              <span class="npk-label nitrogen-color">N - النيتروجين</span>
+              <div class="bar-track">
+                <div class="bar-fill nitrogen-bg" [style.width.%]="getNpkPercent(fertilizer.npk.n)"></div>
+              </div>
+              <span class="npk-pct">{{ fertilizer.npk.n }}%</span>
+            </div>
+            <div class="npk-row">
+              <span class="npk-label phosphorus-color">P - الفوسفور</span>
+              <div class="bar-track">
+                <div class="bar-fill phosphorus-bg" [style.width.%]="getNpkPercent(fertilizer.npk.p)"></div>
+              </div>
+              <span class="npk-pct">{{ fertilizer.npk.p }}%</span>
+            </div>
+            <div class="npk-row">
+              <span class="npk-label potassium-color">K - البوتاسيوم</span>
+              <div class="bar-track">
+                <div class="bar-fill potassium-bg" [style.width.%]="getNpkPercent(fertilizer.npk.k)"></div>
+              </div>
+              <span class="npk-pct">{{ fertilizer.npk.k }}%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application Rate -->
+        <div class="info-box rate-box">
+          <span class="info-icon">⚖️</span>
+          <div>
+            <div class="info-label">معدل التسميد الموصى به</div>
+            <div class="info-val">{{ fertilizer.applicationRate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Panel -->
+      <div class="side-panel">
+        <!-- Crops -->
+        <div class="side-card">
+          <h3 class="side-h">🌾 المحاصيل المناسبة</h3>
+          <div class="tags-list">
+            @for (crop of fertilizer.crops; track crop) {
+              <span class="crop-tag">{{ crop }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="side-card benefits-card">
+          <h3 class="side-h">✅ الفوائد</h3>
+          <ul class="list">
+            @for (b of fertilizer.benefits; track b) {
+              <li>{{ b }}</li>
+            }
+          </ul>
+        </div>
+
+        <!-- Warnings -->
+        <div class="side-card warnings-card">
+          <h3 class="side-h">⚠️ تحذيرات واحتياطات</h3>
+          <ul class="list">
+            @for (w of fertilizer.warnings; track w) {
+              <li>{{ w }}</li>
+            }
+          </ul>
+        </div>
+
+        <!-- Source -->
+        <div class="side-card source-card">
+          <h3 class="side-h">📖 المصدر العلمي</h3>
+          <div class="source-info">
+            <div class="source-row"><strong>المرجع:</strong> {{ fertilizer.source.title }}</div>
+            <div class="source-row"><strong>المؤلف:</strong> {{ fertilizer.source.author }}</div>
+            <div class="source-row"><strong>السنة:</strong> {{ fertilizer.source.year }}</div>
+            @if (fertilizer.source.publisher) {
+              <div class="source-row"><strong>الناشر:</strong> {{ fertilizer.source.publisher }}</div>
+            }
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-btns">
+          @if (fertilizer.pdfId) {
+            <button (click)="viewPdf()" class="pdf-btn">
+              📄 عرض ملف PDF المرتبط
+            </button>
+          }
+          <button (click)="goBack()" class="back-btn">
+            ← العودة للقائمة
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

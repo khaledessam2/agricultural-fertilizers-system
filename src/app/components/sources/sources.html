@@ -1,0 +1,71 @@
+<div class="page-container" dir="rtl">
+  <div class="page-header">
+    <h1 class="page-title">📖 المصادر والمراجع العلمية</h1>
+    <p class="page-sub">جميع المعلومات في هذا النظام مستندة إلى مصادر علمية موثقة ومعتمدة</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-pill">📚 {{ sources.length }} مرجع علمي</div>
+    <div class="stat-pill">🌿 {{ fertilizers.length }} سماد موثق</div>
+    <div class="stat-pill">📄 {{ pdfs.length }} ملف PDF</div>
+  </div>
+
+  <!-- Source Cards -->
+  <div class="sources-list">
+    @for (s of sources; track s.id) {
+      <div class="source-card">
+        <div class="source-header">
+          <div class="source-id">{{ s.id }}</div>
+          <div class="source-main">
+            <h3 class="source-title">{{ s.title }}</h3>
+            <div class="source-author">{{ s.author }}</div>
+          </div>
+          <span class="type-badge"
+            [class.badge-book]="s.type === 'book'"
+            [class.badge-research]="s.type === 'research'"
+            [class.badge-report]="s.type === 'report'"
+            [class.badge-guide]="s.type === 'guide'"
+          >
+            {{ typeLabels[s.type] }}
+          </span>
+        </div>
+
+        <div class="source-details">
+          <div class="detail-item">
+            <span class="detail-icon">🏛️</span>
+            <span>{{ s.organization }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">📅</span>
+            <span>{{ s.year }}</span>
+          </div>
+          @if (s.relatedFertilizers?.length) {
+            <div class="detail-item">
+              <span class="detail-icon">🌿</span>
+              <span>الأسمدة ذات الصلة: {{ s.relatedFertilizers!.join(' - ') }}</span>
+            </div>
+          }
+        </div>
+
+        @if (s.pdfId) {
+          <div class="source-actions">
+            <a [routerLink]="['/pdf-viewer', s.pdfId]" class="pdf-link">
+              📄 عرض ملف PDF
+            </a>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <div class="disc-icon">ℹ️</div>
+    <div>
+      <strong>ملاحظة:</strong>
+      جميع المعلومات الواردة في هذا النظام للأغراض التعليمية والبحثية فقط.
+      يُنصح دائماً بالرجوع إلى المتخصصين الزراعيين والمراجع الأصلية قبل اتخاذ أي قرارات تسميد.
+    </div>
+  </div>
+</div>
